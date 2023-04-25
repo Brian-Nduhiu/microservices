@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package ecommerce;
+
+import "google/protobuf/timestamp.proto";
+
+// Message types
+message ProductStock {
+    int32 id = 1;
+    int32 productId = 2;
+    int32 quantity = 3;
+    google.protobuf.Timestamp createdAt = 4;
+    google.protobuf.Timestamp updatedAt = 5;
+}
+
+message UpdateProductStockRequest {
+    int32 productId = 1;
+    int32 quantity = 2;
+}
+
+message UpdateProductStockResponse {
+    ProductStock productStock = 1;
+}
+
+message GetProductStockRequest {
+    int32 productId = 1;
+}
+
+message GetProductStockResponse {
+    ProductStock productStock = 1;
+}
+
+// Service definition
+service InventoryService {
+    rpc UpdateProductStock (UpdateProductStockRequest) returns (UpdateProductStockResponse);
+    rpc GetProductStock (GetProductStockRequest) returns (GetProductStockResponse);
+}
