@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package ecommerce;
+
+import "google/protobuf/timestamp.proto";
+
+// Message types
+message Order {
+    int32 id = 1;
+    int32 userId = 2;
+    string status = 3;
+    google.protobuf.Timestamp createdAt = 4;
+    google.protobuf.Timestamp updatedAt = 5;
+}
+
+message OrderItem {
+    int32 id = 1;
+    int32 orderId = 2;
+    int32 productId = 3;
+    int32 quantity = 4;
+    double price = 5;
+    google.protobuf.Timestamp createdAt = 6;
+    google.protobuf.Timestamp updatedAt = 7;
+}
+
+message CreateOrderRequest {
+    int32 userId = 1;
+    repeated OrderItem orderItems = 2;
+}
+
+message CreateOrderResponse {
+    Order order = 1;
+}
+
+message GetOrderRequest {
+    int32 orderId = 1;
+}
+
+message GetOrderResponse {
+    Order order = 1;
+    repeated OrderItem orderItems = 2;
+}
+
+message GetOrdersRequest {
+}
+
+message GetOrdersResponse {
+    repeated Order orders = 1;
+}
+
+message UpdateOrderRequest {
+    int32 orderId = 1;
+    string status = 2;
+}
+
+message UpdateOrderResponse {
+    Order order = 1;
+}
+
+message DeleteOrderRequest {
+    int32 orderId = 1;
+}
+
+message DeleteOrderResponse {
+    bool success = 1;
+}
+
+// Service definition
+service OrderService {
+    rpc CreateOrder (CreateOrderRequest) returns (CreateOrderResponse);
+    rpc GetOrder (GetOrderRequest) returns (GetOrderResponse);
+    rpc GetOrders (GetOrdersRequest) returns (GetOrdersResponse);
+    rpc UpdateOrder (UpdateOrderRequest) returns (UpdateOrderResponse);
+    rpc DeleteOrder (DeleteOrderRequest) returns (DeleteOrderResponse);
+}
