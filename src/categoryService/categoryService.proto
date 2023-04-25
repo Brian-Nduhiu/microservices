@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package ecommerce;
+
+import "google/protobuf/timestamp.proto";
+
+// Message types
+message Category {
+    int32 id = 1;
+    string name = 2;
+    google.protobuf.Timestamp createdAt = 3;
+    google.protobuf.Timestamp updatedAt = 4;
+}
+
+message CreateCategoryRequest {
+    string name = 1;
+}
+
+message CreateCategoryResponse {
+    Category category = 1;
+}
+
+message GetCategoryRequest {
+    int32 categoryId = 1;
+}
+
+message GetCategoryResponse {
+    Category category = 1;
+}
+
+message GetCategoriesRequest {
+}
+
+message GetCategoriesResponse {
+    repeated Category categories = 1;
+}
+
+message UpdateCategoryRequest {
+    int32 categoryId = 1;
+    string name = 2;
+}
+
+message UpdateCategoryResponse {
+    Category category = 1;
+}
+
+message DeleteCategoryRequest {
+    int32 categoryId = 1;
+}
+
+message DeleteCategoryResponse {
+    bool success = 1;
+}
+
+// Service definition
+service CategoryService {
+    rpc CreateCategory (CreateCategoryRequest) returns (CreateCategoryResponse);
+    rpc GetCategory (GetCategoryRequest) returns (GetCategoryResponse);
+    rpc GetCategories (GetCategoriesRequest) returns (GetCategoriesResponse);
+    rpc UpdateCategory (UpdateCategoryRequest) returns (UpdateCategoryResponse);
+    rpc DeleteCategory (DeleteCategoryRequest) returns (DeleteCategoryResponse);
+}
