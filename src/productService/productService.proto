@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+package ecommerce;
+
+import "google/protobuf/timestamp.proto";
+
+// Message types
+message Product {
+    int32 id = 1;
+    string name = 2;
+    string description = 3;
+    float price = 4;
+    string imageUrl = 5;
+    int32 categoryId = 6;
+    google.protobuf.Timestamp createdAt = 7;
+    google.protobuf.Timestamp updatedAt = 8;
+}
+
+message CreateProductRequest {
+    string name = 1;
+    string description = 2;
+    float price = 3;
+    string imageUrl = 4;
+    int32 categoryId = 5;
+}
+
+message CreateProductResponse {
+    Product product = 1;
+}
+
+message GetProductRequest {
+    int32 id = 1;
+}
+
+message GetProductResponse {
+    Product product = 1;
+}
+
+message ListProductsRequest {
+    int32 page = 1;
+    int32 pageSize = 2;
+    string filter = 3;
+    string sortBy = 4;
+}
+
+message ListProductsResponse {
+    repeated Product products = 1;
+    int32 totalProducts = 2;
+}
+
+message UpdateProductRequest {
+    int32 id = 1;
+    string name = 2;
+    string description = 3;
+    float price = 4;
+    string imageUrl = 5;
+    int32 categoryId = 6;
+}
+
+message UpdateProductResponse {
+    Product product = 1;
+}
+
+message DeleteProductRequest {
+    int32 id = 1;
+}
+
+message DeleteProductResponse {
+    bool success = 1;
+}
+
+// Service definition
+service ProductService {
+    rpc CreateProduct (CreateProductRequest) returns (CreateProductResponse);
+    rpc GetProduct (GetProductRequest) returns (GetProductResponse);
+    rpc ListProducts (ListProductsRequest) returns (ListProductsResponse);
+    rpc UpdateProduct (UpdateProductRequest) returns (UpdateProductResponse);
+    rpc DeleteProduct (DeleteProductRequest) returns (DeleteProductResponse);
+}
