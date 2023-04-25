@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package ecommerce;
+
+import "google/protobuf/timestamp.proto";
+
+// Message types
+message Payment {
+    int32 id = 1;
+    int32 userId = 2;
+    int32 orderId = 3;
+    string status = 4;
+    double amount = 5;
+    google.protobuf.Timestamp createdAt = 6;
+    google.protobuf.Timestamp updatedAt = 7;
+}
+
+message CreatePaymentRequest {
+    int32 userId = 1;
+    int32 orderId = 2;
+    double amount = 3;
+}
+
+message CreatePaymentResponse {
+    Payment payment = 1;
+}
+
+message CreateRefundRequest {
+    int32 paymentId = 1;
+}
+
+message CreateRefundResponse {
+    Payment payment = 1;
+}
+
+message GetPaymentsByUserIdRequest {
+    int32 userId = 1;
+}
+
+message GetPaymentsByUserIdResponse {
+    repeated Payment payments = 1;
+}
+
+// Service definition
+service PaymentService {
+    rpc CreatePayment (CreatePaymentRequest) returns (CreatePaymentResponse);
+    rpc CreateRefund (CreateRefundRequest) returns (CreateRefundResponse);
+    rpc GetPaymentsByUserId (GetPaymentsByUserIdRequest) returns (GetPaymentsByUserIdResponse);
+}
