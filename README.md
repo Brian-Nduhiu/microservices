@@ -147,3 +147,40 @@ Payment: id, userId, orderId, status, amount, createdAt, updatedAt
   - POST /payments
   - POST /payments/refund
   - GET /payments/:userId
+
+# Microservice Communication
+
+- UserService to OrderService:
+
+  - When a user's profile is retrieved, fetch the user's order history.
+  - Communicate via gRPC calls by sending a request with the userId and receiving a list of orders associated with that user.
+
+* OrderService to UserService:
+
+  - When an order is retrieved, fetch the user details associated with that order.
+  - Communicate via gRPC calls by sending a request with the userId and receiving the user details.
+
+* OrderService to ProductService:
+
+  - When an order is retrieved, fetch the details of the products in that order.
+  - Communicate via gRPC calls by sending a request with the productIds and receiving the product details.
+
+* OrderService to InventoryService:
+
+  - When a new order is created, update the product stock in the InventoryService.
+  - Communicate via gRPC calls by sending a request with the orderId and productIds, along with the quantities to update the stock.
+
+* CartService to ProductService:
+
+  - When the cart contents are retrieved, fetch the details of the products in the cart.
+  - Communicate via gRPC calls by sending a request with the productIds and receiving the product details.
+
+* ProductService to CategoryService:
+
+  - When a product is retrieved, fetch the category details associated with that product.
+  - Communicate via gRPC calls by sending a request with the categoryId and receiving the category details.
+
+* UserService to PaymentService:
+
+  - When a user's profile is retrieved, fetch the user's payment history.
+  - Communicate via gRPC calls by sending a request with the userId and receiving the payment history associated with that user.
