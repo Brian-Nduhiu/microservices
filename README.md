@@ -51,3 +51,92 @@
 - Process a payment
 - Refund a payment
 - Retrieve payment history
+
+# Data Models & API Endpoints
+
+## User Management (UserService)
+
+Data Models:
+
+User: id, firstName, lastName, email, password, role, createdAt, updatedAt
+API Endpoints:
+
+POST /register
+POST /login
+GET /profile/:userId
+PUT /profile/:userId
+DELETE /profile/:userId
+
+## Product Management (ProductService)
+
+Data Models:
+
+Product: id, name, description, price, imageUrl, categoryId, createdAt, updatedAt
+API Endpoints:
+
+POST /products
+GET /products/:productId
+GET /products
+PUT /products/:productId
+DELETE /products/:productId
+
+## Category Management (CategoryService)
+
+Data Models:
+
+Category: id, name, createdAt, updatedAt
+API Endpoints:
+
+POST /categories
+GET /categories/:categoryId
+GET /categories
+PUT /categories/:categoryId
+DELETE /categories/:categoryId
+
+## Order Management (OrderService)
+
+Data Models:
+
+Order: id, userId, status, createdAt, updatedAt
+OrderItem: id, orderId, productId, quantity, price, createdAt, updatedAt
+API Endpoints:
+
+POST /orders
+GET /orders/:orderId
+GET /orders
+PUT /orders/:orderId
+DELETE /orders/:orderId
+
+## Cart Management (CartService)
+
+Data Models:
+
+CartItem: id, userId, productId, quantity, createdAt, updatedAt
+API Endpoints:
+
+POST /cart
+GET /cart/:userId
+PUT /cart/:cartItemId
+DELETE /cart/:cartItemId
+DELETE /cart/:userId
+
+## Inventory Management (InventoryService)
+
+Data Models:
+
+ProductStock: id, productId, quantity, createdAt, updatedAt
+API Endpoints:
+
+PUT /inventory/:productId
+GET /inventory/:productId
+
+## Payment Processing (PaymentService)
+
+Data Models:
+
+Payment: id, userId, orderId, status, amount, createdAt, updatedAt
+API Endpoints:
+
+POST /payments
+POST /payments/refund
+GET /payments/:userId
